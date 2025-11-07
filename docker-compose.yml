@@ -1,0 +1,50 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  # --- 1. PostgreSQL Database (Used by NocoDB) ---
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      # CRITICAL: Must match the password set in Dagster's run command
+      POSTGRES_PASSWORD: 299centblues 
+      POSTGRES_DB: nocodb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - metabase_net
+    # Optional: Expose the port for external tools like Metabase/pgAdmin
+    # ports:
+     - "5432:5432" 
+
+  # --- 2. NocoDB Application ---
+  nocodb:
+    image: nocodb/nocodb
+    container_name: nocodb_app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      # NocoDB uses these variables to connect to the database container (db)
+      NC_DB: pg
+      NC_PG_HOST: db        # The service name of the PostgreSQL container
+      NC_PG_PORT: 5432
+      NC_PG_USER: postgres
+      NC_PG_DBNAME: nocodb
+      NC_PG_PASS: 299centblues # CRITICAL: Must match Dagster/Postgres password
+    networks:
+      - metabase_net
+
+volumes:
+  postgres_data:
+
+networks:
+  metabase_net:
+    # Use this network name (nocodb_net) when launching Metabase and Dagster
+    name: metabase-net
+    # for SOME REASON there the docker-compose instructions must use "_net" and then generate "-net"
+    
