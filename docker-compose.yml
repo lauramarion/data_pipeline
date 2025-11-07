@@ -17,7 +17,7 @@ services:
       - metabase_net
     # Optional: Expose the port for external tools like Metabase/pgAdmin
     # ports:
-     - "5432:5432" 
+      - "5432:5432" 
 
   # --- 2. NocoDB Application ---
   nocodb:
@@ -47,4 +47,3 @@ networks:
     # Use this network name (nocodb_net) when launching Metabase and Dagster
     name: metabase-net
     # for SOME REASON there the docker-compose instructions must use "_net" and then generate "-net"
-    
