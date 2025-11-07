@@ -1,7 +1,0 @@
-# requirements.txt
-dagster
-dagster-webserver
-dagster-dg-cli
-pandas
-sqlalchemy
-psycopg2-binary
