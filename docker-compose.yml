@@ -15,9 +15,6 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - metabase_net
-    # Optional: Expose the port for external tools like Metabase/pgAdmin
-    # ports:
-      - "5432:5432" 
 
   # --- 2. NocoDB Application ---
   nocodb:
