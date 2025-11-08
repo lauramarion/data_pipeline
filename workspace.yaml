@@ -1,20 +1,21 @@
-# workspace.yaml (The final, correct structure for your Dagster version)
+# workspace.yaml 
 
+# 1. DEFINE WHERE THE CODE IS LOCATED
 load_from:
-  - python_file: # 🚨 This is the only root key allowed in the list item 🚨
-      
-      # All location properties are now nested under python_file
+  - python_file:
       relative_path: orchestrator/definitions.py
       working_directory: /app
       executable_path: /usr/local/bin/python3.11
       location_name: orchestrator_code
-      
-      # 🚨 The resource config is also nested under python_file 🚨
-      resource_config:
-        nocodb_db:
-          config:
-            database: "nocodb"
-            user: "postgres"
-            password: "299centblues"
-            host: "db"
-            port: 5432
+
+# 🚨 2. DEFINE THE CONFIGURATION FOR THAT LOCATION SEPARATELY 🚨
+locations:
+  - location_name: orchestrator_code # Must match the name above
+    resource_config:
+      nocodb_db:
+        config:
+          database: "nocodb"
+          user: "postgres"
+          password: "299centblues"
+          host: "db"
+          port: 5432
