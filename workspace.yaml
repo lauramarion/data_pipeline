@@ -1,16 +1,13 @@
 # workspace.yaml 
-
-# 1. DEFINE WHERE THE CODE IS LOCATED
 load_from:
-  - python_file:
+  - # 🚨 Location definition 🚨
+    python_file:
       relative_path: orchestrator/definitions.py
       working_directory: /app
       executable_path: /usr/local/bin/python3.11
       location_name: orchestrator_code
 
-# 🚨 2. DEFINE THE CONFIGURATION FOR THAT LOCATION SEPARATELY 🚨
-locations:
-  - location_name: orchestrator_code # Must match the name above
+    # 🚨 Configuration definition (MUST be here based on elimination) 🚨
     resource_config:
       nocodb_db:
         config:
