@@ -1,13 +1,16 @@
-from dagster import ConfigurableResource, resource, Field, Int, String
+from dagster import ConfigurableResource 
 from typing import Any
+from pydantic import Field 
+import typing
 
-# Define the configuration schema using Dagster's built-in types
+# Define the configuration schema using Pydantic Field
 class DbConnectionResource(ConfigurableResource):
-    database: str = Field(String)
-    user: str = Field(String)
-    password: str = Field(String)
-    host: str = Field(String)
-    port: int = Field(Int)
+    # Use standard Python type hints combined with Pydantic Field
+    database: str = Field(description="The name of the database.")
+    user: str = Field(description="The database username.")
+    password: str = Field(description="The database password.")
+    host: str = Field(description="The database host (e.g., 'db').")
+    port: int = Field(5432, description="The database port.") # Note: 5432 is the default value
     
     # The actual business logic of the resource goes here
     def get_connection(self):
