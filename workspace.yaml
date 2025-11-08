@@ -1,20 +1,20 @@
-# workspace.yaml (Final Correct Structure)
+# workspace.yaml (The final, correct structure for your Dagster version)
 
 load_from:
-  - location_name: orchestrator_code
-    
-    # 🚨 FIX 1: Use correct file paths as required by error 🚨
-    python_file:
-      relative_path: orchestrator/definitions.py # Path relative to the working_directory (or current directory)
-      working_directory: /app # Set the working directory to the root of the app
-      executable_path: /usr/local/bin/python3.11 # Specify the Python interpreter path
-
-    # 🚨 FIX 2: resource_config moves OUT of python_file 🚨
-    resource_config:
-      nocodb_db:
-        config:
-          database: "nocodb"
-          user: "postgres"
-          password: "299centblues" 
-          host: "db"
-          port: 5432
+  - python_file: # 🚨 This is the only root key allowed in the list item 🚨
+      
+      # All location properties are now nested under python_file
+      relative_path: orchestrator/definitions.py
+      working_directory: /app
+      executable_path: /usr/local/bin/python3.11
+      location_name: orchestrator_code
+      
+      # 🚨 The resource config is also nested under python_file 🚨
+      resource_config:
+        nocodb_db:
+          config:
+            database: "nocodb"
+            user: "postgres"
+            password: "299centblues"
+            host: "db"
+            port: 5432
