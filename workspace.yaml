@@ -1,15 +1,20 @@
+# workspace.yaml (Final Correct Structure)
+
 load_from:
-  - python_file:
-      path: /app/orchestrator/definitions.py
-      location_name: orchestrator_code
-      working_directory: /app/orchestrator
-      
-      # Hardcoded configuration is necessary to bypass the Env Var reading issue
-      resource_config:
-        nocodb_db:
-          config:
-            database: "nocodb"
-            user: "postgres"
-            password: "299centblues" 
-            host: "db"
-            port: 5432
+  - location_name: orchestrator_code
+    
+    # 🚨 FIX 1: Use correct file paths as required by error 🚨
+    python_file:
+      relative_path: orchestrator/definitions.py # Path relative to the working_directory (or current directory)
+      working_directory: /app # Set the working directory to the root of the app
+      executable_path: /usr/local/bin/python3.11 # Specify the Python interpreter path
+
+    # 🚨 FIX 2: resource_config moves OUT of python_file 🚨
+    resource_config:
+      nocodb_db:
+        config:
+          database: "nocodb"
+          user: "postgres"
+          password: "299centblues" 
+          host: "db"
+          port: 5432
