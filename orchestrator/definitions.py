@@ -2,8 +2,7 @@
 import os
 from dagster import Definitions, load_assets_from_modules 
 import assets
-
-# from resources import DbConnectionResource 
+from resources import DbConnectionResource 
 
 all_assets = load_assets_from_modules([assets])
 
