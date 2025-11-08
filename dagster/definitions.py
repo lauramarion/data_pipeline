@@ -1,8 +1,8 @@
 # definitions.py
 
 from dagster import Definitions, load_assets_from_modules 
-# import assets
-from . import assets 
+import assets
+
 # from resources import DbConnectionResource 
 
 all_assets = load_assets_from_modules([assets])
