@@ -1,11 +1,17 @@
 # dagster.yaml
-# We define the resource configuration here using the *actual* secret value.
-
-resources:
-  nocodb_db:
-    config:
-      database: "nocodb"
-      user: "postgres"
-      password: "299centblues"
-      host: "db"
-      port: 5432
+# 1. Define the code location
+code_servers:
+  - location_name: orchestrator_code
+    python_file: /app/orchestrator/definitions.py
+    working_directory: /app/orchestrator
+    
+    # 2. RESOURCE CONFIGURATION GOES INSIDE THE LOCATION
+    # This block configures the resources for *this specific* code location.
+    resources:
+      nocodb_db:
+        config:
+          database: "nocodb"
+          user: "postgres"
+          password: "299centblues" # Hardcoded value for debugging stability
+          host: "db"
+          port: 5432
