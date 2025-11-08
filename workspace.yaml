@@ -1,0 +1,15 @@
+load_from:
+  - python_file:
+      path: /app/orchestrator/definitions.py
+      location_name: orchestrator_code
+      working_directory: /app/orchestrator
+      
+      # 🚨 RESOURCE CONFIGURATION GOES INSIDE THE CODE LOCATION 🚨
+      resource_config:
+        nocodb_db:
+          config:
+            database: "nocodb"
+            user: "postgres"
+            password: "299centblues"
+            host: "db"
+            port: 5432
