@@ -1,5 +1,5 @@
 # docker-compose.yml
-version: '3.8'
+# version: '3.8'
 
 services:
   # --- 1. PostgreSQL Database (Used by NocoDB) ---
@@ -33,6 +33,7 @@ services:
       NC_PG_USER: postgres
       NC_PG_DBNAME: nocodb
       NC_PG_PASS: 299centblues # CRITICAL: Must match Dagster/Postgres password
+      NC_PUBLIC_URL: http://localhost:8080
     networks:
       - metabase_net
 
