@@ -1,0 +1,11 @@
+# dagster.yaml
+# We define the resource configuration here using the *actual* secret value.
+
+resources:
+  nocodb_db:
+    config:
+      database: "nocodb"
+      user: "postgres"
+      password: "299centblues"
+      host: "db"
+      port: 5432
