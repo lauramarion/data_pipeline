@@ -2,6 +2,7 @@
 
 FROM python:3.11-slim 
 WORKDIR /app 
+ENV PYTHONPATH="${PYTHONPATH}:/app/dagster"
 
 # 1. Install Dependencies
 COPY requirements.txt .
