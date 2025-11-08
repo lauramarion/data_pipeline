@@ -4,12 +4,12 @@ load_from:
       location_name: orchestrator_code
       working_directory: /app/orchestrator
       
-      # 🚨 RESOURCE CONFIGURATION GOES INSIDE THE CODE LOCATION 🚨
+      # Hardcoded configuration is necessary to bypass the Env Var reading issue
       resource_config:
         nocodb_db:
           config:
             database: "nocodb"
             user: "postgres"
-            password: "299centblues"
+            password: "299centblues" 
             host: "db"
             port: 5432
