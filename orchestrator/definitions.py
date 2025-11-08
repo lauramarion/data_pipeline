@@ -11,11 +11,7 @@ all_assets = load_assets_from_modules([assets])
 # -----------------
 
 nocodb_resource_configured = DbConnectionResource.configured({
-    "database": "nocodb",
-    "user": "postgres",
-    "password": os.environ.get("NOCODB_DB_PASSWORD"), 
-    "host": "db", 
-    "port": 5432
+"password": os.environ.get("NOCODB_DB_PASSWORD"),
 })
 
 # -----------------
