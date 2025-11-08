@@ -34,6 +34,7 @@ services:
       NC_PG_DBNAME: nocodb
       NC_PG_PASS: 299centblues # CRITICAL: Must match Dagster/Postgres password
       NC_PUBLIC_URL: http://localhost:8080
+      NC_CLIENT_ROOT_URL: http://localhost:8080
     networks:
       - metabase_net
 
