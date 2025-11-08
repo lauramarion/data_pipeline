@@ -1,24 +1,24 @@
-from dagster import ConfigurableResource
-from sqlalchemy import create_engine
-from typing import ClassVar
+from dagster import ConfigurableResource, resource, Field, Int, String
+from typing import Any
 
+# Define the configuration schema using Dagster's built-in types
 class DbConnectionResource(ConfigurableResource):
-    """
-    A resource for creating a SQLAlchemy engine to connect to the database.
-    """
-    # Connection parameters—Dagster expects these keys to be defined
-    host: str       # e.g., 'nocodb' (the Docker container name)
-    port: int = 5432
-    user: str = "postgres"
-    password: str   # Will be provided via an Environment Variable
-    database: str = "nocodb"
+    database: str = Field(String)
+    user: str = Field(String)
+    password: str = Field(String)
+    host: str = Field(String)
+    port: int = Field(Int)
     
-    # This defines the Environment Variable key used to securely pass the password
-    env_keys: ClassVar[dict] = {
-        "password": "NOCODB_DB_PASSWORD"
-    }
+    # The actual business logic of the resource goes here
+    def get_connection(self):
+        # This is where you would connect using psycopg2
+        return f"Postgres connection to {self.host}:{self.port} as {self.user}"
 
-    def get_engine(self):
-        """Builds and returns the SQLAlchemy engine."""
-        db_url = f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"
-        return create_engine(db_url)
+    # The actual resource factory function that Dagster calls
+    def __call__(self, context) -> Any:
+        return self
+
+# You still need to export the class under the old name 
+# to ensure your definitions.py import works.
+# This line is sometimes necessary depending on Dagster version/setup.
+db_connection_resource = DbConnectionResource()

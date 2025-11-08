@@ -2,7 +2,7 @@
 import os
 from dagster import Definitions, load_assets_from_modules 
 import assets
-from resources import DbConnectionResource 
+from resources import db_connection_resource
 
 all_assets = load_assets_from_modules([assets])
 
@@ -14,7 +14,7 @@ nocodb_resource_configured = DbConnectionResource.configured({
     "database": "nocodb",
     "user": "postgres",
     "password": os.environ.get("NOCODB_DB_PASSWORD"), 
-    "host": "db", # The Docker Compose service name for PostgreSQL
+    "host": "db", 
     "port": 5432
 })
 
