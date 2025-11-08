@@ -28,11 +28,12 @@ services:
     environment:
       # NocoDB uses these variables to connect to the database container (db)
       NC_DB: pg
-      NC_PG_HOST: db        # The service name of the PostgreSQL container
-      NC_PG_PORT: 5432
-      NC_PG_USER: postgres
-      NC_PG_DBNAME: nocodb
-      NC_PG_PASS: 299centblues # CRITICAL: Must match Dagster/Postgres password
+      #NC_PG_HOST: db        # The service name of the PostgreSQL container
+      #NC_PG_PORT: 5432
+      #NC_PG_USER: postgres
+      #NC_PG_DBNAME: nocodb
+      #NC_PG_PASS: 299centblues # CRITICAL: Must match Dagster/Postgres password
+      NC_DATABASE_URL: postgresql://postgres:299centblues@db:5432/nocodb
       NC_PUBLIC_URL: http://localhost:8080
       NC_CLIENT_ROOT_URL: http://localhost:8080
     networks:
