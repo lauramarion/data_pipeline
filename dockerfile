@@ -12,4 +12,7 @@ COPY . /app
 
 # 3. Execution: Point to the files inside the 'dagster/' subfolder
 # The Code Server will run the definitions file found at /app/dagster/definitions.py
-ENTRYPOINT ["dagster", "dev", "-f", "definitions.py", "--host", "0.0.0.0", "-d", "/app/orchestrator"]
+ENTRYPOINT ["dagster", "dev", 
+            "-f", "/app/orchestrator/definitions.py", 
+            "--host", "0.0.0.0", 
+            "-d", "/app/orchestrator"]
