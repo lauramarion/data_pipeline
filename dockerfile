@@ -10,7 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 2. Copy the entire repository content (including the dagster/ folder)
 COPY . /app
 
-COPY workspace.yaml /opt/dagster/workspace.yaml
+#COPY workspace.yaml /opt/dagster/workspace.yaml
 
 # 3. Execution: Point to the files inside the 'dagster/' subfolder
 # The Code Server will run the definitions file found at /app/dagster/definitions.py
