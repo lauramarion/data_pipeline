@@ -8,11 +8,11 @@ load_from:
       location_name: orchestrator_code
 
     # 🚨 Configuration definition (MUST be here based on elimination) 🚨
-    resource_config:
-      nocodb_db:
-        config:
-          database: "nocodb"
-          user: "postgres"
-          password: "299centblues"
-          host: "db"
-          port: 5432
+#    resource_config:
+#      nocodb_db:
+#        config:
+#          database: "nocodb"
+#          user: "postgres"
+#          password: "299centblues"
+#          host: "db"
+#          port: 5432
