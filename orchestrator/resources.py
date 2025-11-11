@@ -16,9 +16,3 @@ class DbConnectionResource(ConfigurableResource):
         # This is where you would connect using psycopg2
         return f"Postgres connection to {self.host}:{self.port} as {self.user}"
 
-    # The actual resource factory function that Dagster calls
-    #def __call__(self, context) -> Any:
-    #    return self
-
-# This line is sometimes necessary depending on Dagster version/setup.
-#db_connection_resource = DbConnectionResource()
