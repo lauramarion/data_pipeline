@@ -21,7 +21,5 @@ class DbConnectionResource(ConfigurableResource):
     def __call__(self, context) -> Any:
         return self
 
-# You still need to export the class under the old name 
-# to ensure your definitions.py import works.
 # This line is sometimes necessary depending on Dagster version/setup.
-db_connection_resource = DbConnectionResource()
+#db_connection_resource = DbConnectionResource()

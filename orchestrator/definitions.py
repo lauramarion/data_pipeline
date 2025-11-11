@@ -25,6 +25,6 @@ nocodb_resource_configured = DbConnectionResource.configured({
 defs = Definitions(
     assets=all_assets,
     resources={
-        "nocodb_db": DbConnectionResource, 
+        "nocodb_db": nocodb_resource_configured, 
     },
 )
