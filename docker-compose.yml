@@ -1,4 +1,4 @@
-version: '3.8'
+#version: '3.8'
 
 services:
   # PostgreSQL Database (shared by NocoDB, Dagster, and Metabase)
@@ -50,13 +50,12 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./dagster:/app
+      - ./dagster:/app/dagster
     networks:
       - metabase-net
     depends_on:
       db:
         condition: service_healthy
-    command: dagster dev -h 0.0.0.0 -p 3000
 
   # Metabase - Analytics and visualization
   metabase:
