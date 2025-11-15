@@ -19,11 +19,11 @@ DROP TABLE IF EXISTS gold.gld_ing_courant;
 
 CREATE TABLE gold.gld_ing_courant AS
 SELECT 
-    c.Date valeur,
+    c.date_valeur,
     c.Montant,
     c.Devise,
-    c.Libellés,
-    c.Détails du mouvement,
+    c.libelles,
+    c.details_du_mouvement,
     b.compte_nom,
     b.compte_beneficiaire,
     b.categorie,
