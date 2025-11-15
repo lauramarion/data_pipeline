@@ -19,8 +19,15 @@ DROP TABLE IF EXISTS gold.gld_ing_courant;
 
 CREATE TABLE gold.gld_ing_courant AS
 SELECT 
-    c.*,
-    b.*
+    c.Date valeur,
+    c.Montant,
+    c.Devise,
+    c.Libellés,
+    c.Détails du mouvement,
+    b.compte_nom,
+    b.compte_beneficiaire,
+    b.categorie,
+    b.reccurence
 FROM pxg7tm9k3crofxc.raw_ing_courant as c
 FULL OUTER JOIN pxg7tm9k3crofxc.raw_ing_beneficiaires as b
     ON c.compte_contrepartie = b.compte_beneficiaire;
