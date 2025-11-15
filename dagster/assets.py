@@ -1,24 +1,11 @@
-from dagster import asset, AssetExecutionContext, AssetMaterialization
-import pandas as pd
-from sqlalchemy import text 
+from dagster import asset, AssetExecutionContext
 from resources import DbConnectionResource
 from sql_loader import get_query
+import pandas as pd
 
-@asset(name="db_connection_test")
-def db_connection_test(context, nocodb_db: DbConnectionResource):
-    """
-    Test asset that uses the configured nocodb_db resource.
-    """
-    context.log.info(f"Successfully loaded DB resource config.")
-    
-    # Access attributes as object properties, not dictionary keys
-    if nocodb_db.password == "299centblues":
-        context.log.info(f"Database: {nocodb_db.database}")
-        context.log.info(f"Host: {nocodb_db.host}")
-        context.log.info(f"User: {nocodb_db.user}")
-        return "SUCCESS: Resource is correctly configured and has the password!"
-    else:
-        return f"FAILURE: Password mismatch. Got: {nocodb_db.password}"
+# =============================================================================
+# PHASE 1: SOURCE ASSETS - Read from NocoDB tables
+# =============================================================================
 
 @asset(name="raw_ing_courant")
 def raw_ing_courant(context: AssetExecutionContext, nocodb_db: DbConnectionResource):
@@ -29,7 +16,7 @@ def raw_ing_courant(context: AssetExecutionContext, nocodb_db: DbConnectionResou
     
     conn = nocodb_db.get_connection()
     try:
-        query = "SELECT * FROM raw_ing_courant"
+        query = "SELECT * FROM pxg7tm9k3crofxc.raw_ing_courant"
         df = pd.read_sql(query, conn)
         context.log.info(f"Successfully read {len(df)} rows from raw_ing_courant")
         return df
@@ -41,24 +28,30 @@ def raw_ing_courant(context: AssetExecutionContext, nocodb_db: DbConnectionResou
 def raw_ing_beneficiaries(context: AssetExecutionContext, nocodb_db: DbConnectionResource):
     """
     Source asset: Reads the raw_ing_beneficiaries table from PostgreSQL/NocoDB.
+    Note: Table name in DB is 'raw_ing_beneficiaires' (with 'e')
     """
     context.log.info("Reading raw_ing_beneficiaries table...")
     
     conn = nocodb_db.get_connection()
     try:
-        query = "SELECT * FROM raw_ing_beneficiaries"
+        query = "SELECT * FROM pxg7tm9k3crofxc.raw_ing_beneficiaires"
         df = pd.read_sql(query, conn)
         context.log.info(f"Successfully read {len(df)} rows from raw_ing_beneficiaries")
         return df
     finally:
         conn.close()
 
+
+# =============================================================================
+# PHASE 2: TRANSFORMATION ASSET - Full Outer Join
+# =============================================================================
+
 @asset(name="gld_ing_courant", deps=["raw_ing_courant", "raw_ing_beneficiaries"])
 def gld_ing_courant(context: AssetExecutionContext, nocodb_db: DbConnectionResource):
     """
     Gold layer asset: Performs a FULL OUTER JOIN between raw_ing_courant 
-    and raw_ing_beneficiaries on compte_contrepartie.
-    Writes the result to gld_ing_courant table in PostgreSQL.
+    and raw_ing_beneficiaires on compte_contrepartie.
+    Writes the result to gold.gld_ing_courant table in PostgreSQL.
     SQL transformation loaded from queries.sql file.
     """
     context.log.info("Starting transformation: FULL OUTER JOIN...")
@@ -77,9 +70,9 @@ def gld_ing_courant(context: AssetExecutionContext, nocodb_db: DbConnectionResou
         conn.commit()
         
         # Get row count for logging
-        cursor.execute("SELECT COUNT(*) FROM gld_ing_courant")
+        cursor.execute("SELECT COUNT(*) FROM gold.gld_ing_courant")
         row_count = cursor.fetchone()[0]
-        context.log.info(f"Successfully created gld_ing_courant with {row_count} rows")
+        context.log.info(f"Successfully created gold.gld_ing_courant with {row_count} rows")
         
         return {"rows_created": row_count, "status": "success"}
         
