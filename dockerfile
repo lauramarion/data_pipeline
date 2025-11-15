@@ -16,4 +16,4 @@ COPY . /app
 # The Code Server will run the definitions file found at /app/dagster/definitions.py
 
 #ENTRYPOINT ["dagster", "dev", "-f", "/app/orchestrator/definitions.py", "--host", "0.0.0.0"]
-ENTRYPOINT ["dagster", "dev", "-f", "/app/orchestrator/definitions.py", "-d", "/app/orchestrator", "--host", "0.0.0.0"]
+ENTRYPOINT ["dagster", "dev", "-f", "/app/dagster/definitions.py", "-d", "/app/dagster", "--host", "0.0.0.0"]
