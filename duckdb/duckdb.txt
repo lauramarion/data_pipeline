@@ -1,0 +1,5 @@
+cd C:\SHIP\DATAFILES\duckdb
+
+.\duckdb.exe -ui stacy.duckdb  --init "init.sql"
+
+.\duckdb.exe -ui budget.duckdb  --init "nocodb_via_postgresql.sql"
