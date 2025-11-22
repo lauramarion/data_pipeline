@@ -1,4 +1,4 @@
-# Dockerfile (Located in the data_pipeline/ root directory)
+# Dockerfile
 
 FROM python:3.11-slim 
 WORKDIR /app 
