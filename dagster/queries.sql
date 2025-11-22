@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS gold.gld_ing_courant;
 
 CREATE TABLE gold.gld_ing_courant AS
 select
-    c.numero_de_mouvement
+    c.numero_de_mouvement,
     c.date_comptable,
     c.montant,
     c.devise,
