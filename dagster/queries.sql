@@ -14,6 +14,7 @@ DROP TABLE IF EXISTS gold.gld_ing_courant;
 
 CREATE TABLE gold.gld_ing_courant AS
 select
+    c.numero_de_mouvement
     c.date_comptable,
     c.montant,
     c.devise,
@@ -29,4 +30,4 @@ left join pxg7tm9k3crofxc.raw_ing_beneficiaires as b
     or lower(c.libelles) like '%' || lower(b.libelle_contient) || '%'
         AND b.libelle_contient IS NOT NULL 
         AND b.libelle_contient != ''
-order by c.Num_ro_de_mouvement
+order by c.numero_de_mouvement
