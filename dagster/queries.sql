@@ -7,7 +7,7 @@
 -- Output table goes to the gold schema
 -- =============================================================================
 
--- Create gold schema if it doesn't exist
+-- name: create_gld_ing_courant
 CREATE SCHEMA IF NOT EXISTS gold;
 
 DROP TABLE IF EXISTS gold.gld_ing_courant;
