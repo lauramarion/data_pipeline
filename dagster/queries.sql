@@ -17,6 +17,8 @@ select
     c.numero_de_mouvement,
     c.date_comptable,
     c.montant,
+    case when c.montant > 0 then c.montant else 0 end as montant_income,
+    case when c.montant < 0 then ABS(c.montant) else 0 end as montant_spending,
     c.devise,
     c.libelles,
     c.details_du_mouvement,
